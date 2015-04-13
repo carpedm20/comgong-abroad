@@ -17,3 +17,4 @@ The MIT License (MIT)
 Screenshots
 -----------
 
+![screen_shot](https://raw.githubusercontent.com/carpedm20/comgong-abroad/master/contents/comgong-abroad-screenshot.PNG)
