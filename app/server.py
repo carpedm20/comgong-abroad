@@ -49,12 +49,15 @@ class Recruit(Base):
     detail = Column(Text)
     published = Column(Boolean, default=False)
 
-    def __init__(self, job, company, content, url, detail):
+    #def __init__(self, job, company, content, url, detail, published=True):
+    def __init__(self, job, company, content, url, detail, jid, published=False):
         self.job = job
         self.company = company
         self.content = content
         self.url = url
         self.detail = detail
+        self.id = jid
+        self.published = published
 
     def __repr__(self):
         msg = '<Recruit %s<%s> (%s): %s>' % (self.company, self.id, self.job, self.url)
@@ -98,13 +101,16 @@ def get_acces_token():
             return app_access
 
 if __name__ == '__main__':
-    while True:
+    main_task(Recruit, db_session, True)
 
-        main_task(Recruit, db_session)
+    while True:
+        main_task(Recruit, db_session, False)
 
         recruits = Recruit.query.filter_by(published=False).all()
 
         if recruits:
+            print " [!] Left recruits : %s" % len(recruits)
+
             for r in recruits:
                 msg = "[ " + r.company + " ] " + r.job +"\r\n\r\n" + r.detail + "\r\n\r\n" + r.content;
 
@@ -119,7 +125,7 @@ if __name__ == '__main__':
                 db_session.commit()
 
                 print " [*] Publish %s <%s>" % (r, token.encode('utf-8'))
-                time.sleep(600)
+                time.sleep(3600)
         else:
             print " [!] Nothing to publish"
 

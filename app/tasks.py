@@ -11,9 +11,9 @@ browser.addheaders = [('User-agent', 'Mozilla/5.0 (X11; U; Linux i686; en-US) Ap
 get_soup = lambda url: BeautifulSoup(requests.get(url).text)
 get_soup = lambda url: BeautifulSoup(browser.open(url).read())
 
-def main_task(Recruit, db_session):
+def main_task(Recruit, db_session, published=False):
     for recruit in get_list():
-        instance = Recruit.query.filter_by(id=recruit[3]).first()
+        instance = Recruit.query.filter_by(id=recruit[5]).first()
         if instance:
             print "[@] %s already exists" % instance
             pass
@@ -22,7 +22,9 @@ def main_task(Recruit, db_session):
                               recruit[1],
                               recruit[2],
                               recruit[3],
-                              recruit[4])
+                              recruit[4],
+                              recruit[5],
+                              published)
 
             db_session.add(recruit)
             db_session.commit()
@@ -54,9 +56,11 @@ def get_list():
         job_content = job.select(".abstract")[0].text
         company = job.select(".company")[0].text
         detail = ' '.join(job.select(".details")[0].text.split())
+        jid = int(url.split("/")[-1].split("?")[0])
 
         yield [job_title,
                company,
                job_content,
                url,
-               detail]
+               detail,
+               jid]
