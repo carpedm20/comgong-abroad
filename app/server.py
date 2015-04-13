@@ -120,8 +120,7 @@ if __name__ == '__main__':
 
                 print " [*] Publish %s <%s>" % (r, token.encode('utf-8'))
                 time.sleep(600)
-                pass
         else:
             print " [!] Nothing to publish"
 
-        time.sleep(600)
+        time.sleep(3600)

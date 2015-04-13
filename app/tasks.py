@@ -28,7 +28,9 @@ def main_task(Recruit, db_session):
             db_session.commit()
 
 def get_list():
-    urls = [BASE + "/job/jobs-in-seoul/?sort=date&trk=jserp_sort_date",
+    urls = [#BASE + "/job/computer-jobs-seoul/?sort=date&trk=jserp_sort_date",
+            BASE + "/job/engineer-jobs-seoul/?sort=date&trk=jserp_sort_date",
+            BASE + "/job/intern-jobs-seoul/?sort=date&trk=jserp_sort_date",
             BASE + "/job/computer-science-intern-jobs/?sort=date&trk=jserp_sort_date"]
 
     job_elems = []
